@@ -14,11 +14,9 @@ const SearchBar = ({ onSelectCity, onGeolocate }) => {
     const [suggestions, setSuggestions] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const searchInput = watch("search");
-    // задержка 500мс для уменьшения кол-ва запросов в API при поиске (стандартно ставят 200-300мс)
     const debouncedSearch = useDebounce(searchInput, 500);
     const wrapperRef = useRef(null);
 
-    // Fetch suggestions
     useEffect(() => {
         if (debouncedSearch && debouncedSearch.length > 2) {
             setIsLoading(true);
@@ -48,7 +46,6 @@ const SearchBar = ({ onSelectCity, onGeolocate }) => {
         setSuggestions([]);
     };
 
-    // Close suggestions when clicking outside
     useEffect(() => {
         function handleClickOutside(event) {
             if (
@@ -89,17 +86,13 @@ const SearchBar = ({ onSelectCity, onGeolocate }) => {
                     />
                     <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60">
                         <svg
-                            className="w-5 h-5"
+                            className="w-5 h-5 text-blue-500"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                            />
+                            >
+                            <circle cx="11" cy="11" r="7" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
+                            <line x1="16" y1="16" x2="21" y2="21" strokeWidth={2.5} strokeLinecap="round" />
                         </svg>
                     </div>
                 </form>
@@ -113,28 +106,9 @@ const SearchBar = ({ onSelectCity, onGeolocate }) => {
 
             <button
                 onClick={onGeolocate}
-                className="flex-shrink-0 px-4 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full transition-colors flex items-center gap-2 backdrop-blur-sm"
+                className="flex-shrink-0 px-4 py-3 bg-blue-400 hover:bg-blue-800 text-white rounded-full transition-colors flex items-center gap-2 backdrop-blur-sm"
                 title={t("currentLocation")}
             >
-                <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                    />
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                </svg>
                 <span className="hidden sm:inline">{t("currentLocation")}</span>
             </button>
         </div>

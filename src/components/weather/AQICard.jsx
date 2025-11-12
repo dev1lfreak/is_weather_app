@@ -15,37 +15,14 @@ const AQICard = ({ data }) => {
     const aqiInfo = getAqiLevel(aqi);
     const aqiText = t("aqiLevels")[aqi];
 
-    const componentList = [
-        { name: "PM2.5", value: components.pm2_5, unit: "μg/m³" },
-        { name: "PM10", value: components.pm10, unit: "μg/m³" },
-        { name: "NO₂", value: components.no2, unit: "μg/m³" },
-        { name: "O₃", value: components.o3, unit: "μg/m³" },
-        { name: "SO₂", value: components.so2, unit: "μg/m³" },
-        { name: "CO", value: components.co, unit: "mg/m³" },
-    ];
-
-    const getAqiColor = (level) => {
-        const colors = {
-            1: "from-green-500 to-green-400",
-            2: "from-yellow-500 to-yellow-400",
-            3: "from-orange-500 to-orange-400",
-            4: "from-red-500 to-red-400",
-            5: "from-purple-500 to-purple-400",
-        };
-        return colors[level] || colors[1];
-    };
-
     return (
         <div className="glass-card">
             <h2 className="text-xl font-semibold text-white mb-4">
                 {t("airQuality")}
             </h2>
 
-            {/* AQI Main Indicator */}
             <div
-                className={`bg-gradient-to-r ${getAqiColor(
-                    aqi
-                )} rounded-xl p-4 mb-4 text-white`}
+                className={`text-white`}
             >
                 <div className="flex items-center justify-between">
                     <div>
@@ -57,7 +34,6 @@ const AQICard = ({ data }) => {
                     <div className="text-4xl font-bold">{aqi}</div>
                 </div>
 
-                {/* AQI Scale */}
                 <div className="mt-4 relative h-2 bg-white/30 rounded-full">
                     <div
                         className={`absolute top-0 left-0 h-full rounded-full bg-white transition-all duration-300`}
@@ -78,27 +54,6 @@ const AQICard = ({ data }) => {
                 </div>
             </div>
 
-            {/* Pollutants */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {componentList.map((component, index) => (
-                    <div
-                        key={index}
-                        className="text-center p-3 bg-white/5 rounded-lg"
-                    >
-                        <div className="text-sm font-medium text-white/80">
-                            {component.name}
-                        </div>
-                        <div className="text-lg font-bold text-white">
-                            {component.value.toFixed(1)}
-                        </div>
-                        <div className="text-xs text-white/60">
-                            {component.unit}
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            {/* Description */}
             <div className="mt-4 p-3 bg-white/5 rounded-lg">
                 <div className="text-sm text-white/80">
                     {t("aqiDescription")[aqi]}

@@ -84,8 +84,8 @@ export const translations = {
         wind: 'Wind Speed',
         pressure: 'Atmospheric Pressure',
         visibility: 'Visibility Range',
-        sunrise: 'Dawn',
-        sunset: 'Dusk',
+        sunrise: 'Sunrise',
+        sunset: 'Sundown',
         uvIndex: 'Ultraviolet Index',
         airQuality: 'Air Condition',
 

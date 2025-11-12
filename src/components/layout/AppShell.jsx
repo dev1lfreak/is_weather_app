@@ -28,7 +28,6 @@ const AppShell = () => {
     const { loading: geoLoading, error: geoError, data: geoData } = useGeolocation()
     const { loading, error, data, isEmpty, refetch } = useWeather(selectedLocation, units, language)
 
-    // Auto-detect location on mount
     useEffect(() => {
         if (geoData && !selectedLocation) {
             apiService.getReverseGeocoding(geoData.lat, geoData.lon)
@@ -73,111 +72,67 @@ const AppShell = () => {
     }
 
     const renderContent = () => {
-        // Initial geolocation loading
-        if (geoLoading && !selectedLocation) {
-            return <States.Loader />
-        }
-
-        // Geolocation error
-        if (geoError && !selectedLocation) {
-            return (
-                <States.Error
-                    message={t('errorGeolocation')}
-                    onRetry={handleGeolocate}
-                />
-            )
-        }
-
-        // Weather data loading
-        if (loading) {
-            return <States.Loader />
-        }
-
-        // Weather data error
-        if (error) {
-            return (
-                <States.Error
-                    message={error.message}
-                    onRetry={refetch}
-                />
-            )
-        }
-
-        // No location selected
-        if (isEmpty) {
-            return <States.Empty />
-        }
-
-        // Weather data available
+        if (geoLoading && !selectedLocation) return <States.Loader />
+        if (geoError && !selectedLocation)
+            return <States.Error message={t('errorGeolocation')} onRetry={handleGeolocate} />
+        if (loading) return <States.Loader />
+        if (error) return <States.Error message={error.message} onRetry={refetch} />
+        if (isEmpty) return <States.Empty />
         if (data) {
             const { current, forecast, airPollution, location } = data
 
             return (
-                <div className="space-y-6">
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        {/* Left Column */}
-                        <div className="lg:col-span-2 space-y-6">
-                            <LocationBadge
-                                city={location}
-                                date={current.dt}
+                <div className="space-y-8 animate-fade-in">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        
+                        <div className="lg:col-span-1 space-y-8">
+                            <AQICard data={airPollution} />
+                            <WeatherMetrics data={current} />
+                            <SunCycle
+                                sunrise={current.sys.sunrise}
+                                sunset={current.sys.sunset}
                                 timezone={current.timezone}
                             />
-                            <CurrentWeatherCard data={current} />
+                        </div>
 
-                            {/* Metrics for desktop */}
-                            <div className="hidden sm:grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                <WeatherMetrics data={current} />
-                                <SunCycle
-                                    sunrise={current.sys.sunrise}
-                                    sunset={current.sys.sunset}
-                                    timezone={current.timezone}
-                                />
+                        <div className="lg:col-span-2 space-y-8">
+                            <LocationBadge city={location} date={current.dt} timezone={current.timezone} />
+                            <CurrentWeatherCard data={current} />
+                            <ForecastList daily={forecast.daily} hourly={forecast.hourly} timezone={current.timezone} />
+                            <div className="hidden sm:grid grid-cols-1 lg:grid-cols-2 gap-8">
+
                             </div>
                         </div>
-
-                        {/* Right Column */}
-                        <div className="lg:col-span-1 space-y-6">
-                            <ForecastList
-                                daily={forecast.daily}
-                                hourly={forecast.hourly}
-                                timezone={current.timezone}
-                            />
-                            <AQICard data={airPollution} />
-                        </div>
                     </div>
-
-                    {/* Metrics for mobile */}
-                    <div className="sm:hidden space-y-4">
+                    <div className="sm:hidden space-y-6">
                         <WeatherMetrics data={current} />
-                        <SunCycle
-                            sunrise={current.sys.sunrise}
-                            sunset={current.sys.sunset}
-                            timezone={current.timezone}
-                        />
+                        <SunCycle sunrise={current.sys.sunrise} sunset={current.sys.sunset} timezone={current.timezone} />
                     </div>
                 </div>
             )
         }
-
         return null
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-300 via-blue-500 to-purple-700 dark:from-gray-800 dark:via-gray-900 dark:to-black text-white transition-colors duration-300">
-            <div className="container mx-auto px-4 py-6">
+        <div className="min-h-screen relative overflow-hidden text-white transition-colors duration-700">
+            <div className="absolute inset-0 bg-gradient-to-br from-sky-500 via-indigo-500 to-purple-500 dark:from-[#0d0d10] dark:via-[#192339] dark:to-[#4b2658]"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(58,99,255,0.15),transparent_60%)]"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,99,179,0.12),transparent_70%)]"></div>
+            <div className="absolute inset-0 backdrop-blur-[100px]"></div>
+
+            <div className="relative z-10 container mx-auto px-4 py-8">
                 <Header onHistoryClick={() => setIsHistoryOpen(true)} />
 
-                <main className="mt-6 space-y-6">
-                    <SearchBar
-                        onSelectCity={handleLocationSelect}
-                        onGeolocate={handleGeolocate}
-                    />
-
-                    {renderContent()}
+                <main className="mt-8 space-y-8">
+                    <SearchBar onSelectCity={handleLocationSelect} onGeolocate={handleGeolocate} />
+                    <div className="rounded-2xl p-6 bg-white/5 shadow-inner border border-white/10 backdrop-blur-xl">
+                        {renderContent()}
+                    </div>
                 </main>
 
-                <footer className="mt-8 text-center text-sm text-white/60">
-                    {t('appName')} • {new Date().getFullYear()}
+                <footer className="mt-10 text-center text-sm text-white/50 tracking-wider">
+                    <div className="opacity-70">{t('appName')} • {new Date().getFullYear()}</div>
                 </footer>
             </div>
 

@@ -14,7 +14,6 @@ const CurrentWeatherCard = ({ data }) => {
     return (
         <div className="glass-card">
             <div className="flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
-                {/* Temperature and Description */}
                 <div className="flex-1">
                     <div className="text-6xl md:text-8xl font-bold text-white">
                         {formatTemperature(main.temp, units)}
@@ -28,7 +27,6 @@ const CurrentWeatherCard = ({ data }) => {
                     </div>
                 </div>
 
-                {/* Weather Icon */}
                 <div className="flex-1 flex justify-center -my-4 sm:-my-8">
                     <img
                         src={getWeatherIconUrl(weatherInfo.icon, 4)}

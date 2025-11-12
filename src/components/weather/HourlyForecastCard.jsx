@@ -29,16 +29,24 @@ const HourlyForecastCard = ({ hour, timezone }) => {
 
             <div className="flex items-center space-x-1 mt-1">
                 <svg
-                    className="w-3 h-3 text-white/60"
+                    className="w-5 h-5 text-blue-400"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
-                >
+                    >
+
                     <path
+                        d="M2 8h14a3 3 0 010 6H4"
+                        strokeWidth={2.5}
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9.59 4.59A2 2 0 1111 8H2m10.59 11.41A2 2 0 1014 16H2m15.73-8.27A2.5 2.5 0 1119.5 12H2"
+                    />
+
+                      <path
+                        d="M2 18h6a1.5 1.5 0 010 3H4"
+                        strokeWidth={1.8}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                     />
                 </svg>
                 <span className="text-xs text-white/60">

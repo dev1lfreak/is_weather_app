@@ -7,16 +7,19 @@ const SearchSuggestions = ({ suggestions, onSelect, loading }) => {
         return (
             <div className="absolute top-full left-0 right-0 mt-2 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-xl shadow-lg z-50 p-4 text-center text-gray-600 dark:text-gray-300">
                 <svg
-                    className="w-5 h-5 inline-block animate-spin"
+                    className="w-5 h-5 inline-block animate-spin text-purple-600"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
-                >
-                    <path
+                    >
+                    <circle
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        strokeWidth={3}
+                        strokeDasharray="60"
+                        strokeDashoffset="20"
                         strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 2v4m0 12v4m8-10h-4M6 12H2m15.364-6.364l-2.828 2.828M6.343 17.657l-2.828 2.828M17.657 6.343l2.828 2.828M17.657 17.657l2.828-2.828"
                     />
                 </svg>
             </div>
@@ -36,23 +39,18 @@ const SearchSuggestions = ({ suggestions, onSelect, loading }) => {
                         className="flex items-center w-full px-4 py-3 text-left text-gray-800 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors first:rounded-t-xl last:rounded-b-xl"
                     >
                         <svg
-                            className="w-5 h-5 mr-3 text-gray-400"
+                            className="w-5 h-5 mr-3 text-blue-500"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
-                        >
+                            >
                             <path
+                                strokeWidth={2.5}
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                d="M12 21s8-4.5 8-11a8 8 0 10-16 0c0 6.5 8 11 8 11z"
                             />
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                            />
+                            <circle cx="12" cy="10" r="3" strokeWidth={2} />
                         </svg>
                         <div>
                             <span className="font-medium">{city.name}</span>

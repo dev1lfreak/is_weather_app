@@ -64,19 +64,19 @@ const HistoryDrawer = ({ isOpen, onClose, onSelect }) => {
                         onClick={onClose}
                         className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                     >
-                        <svg
-                            className="w-6 h-6"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M6 18L18 6M6 6l12 12"
-                            />
-                        </svg>
+                    <svg
+                    className="w-6 h-6 text-red-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    >
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={3}
+                        d="M4 4l16 16M20 4L4 20"
+                    />
+                    </svg>
                     </button>
                 </div>
 
@@ -115,16 +115,24 @@ const HistoryDrawer = ({ isOpen, onClose, onSelect }) => {
                     ) : (
                         <div className="text-center text-gray-500 dark:text-gray-400 mt-8">
                             <svg
-                                className="w-12 h-12 mx-auto mb-4 opacity-50"
+                                className="w-12 h-12 mx-auto mb-4 text-blue-500 opacity-75"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
-                            >
+                                >
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="9"
+                                    strokeWidth={1.5}
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    strokeWidth={1.5}
+                                    d="M12 6v6l4 2"
                                 />
                             </svg>
                             <p>{t("noHistory")}</p>
